@@ -33,7 +33,7 @@ public class Came : MonoBehaviour
     void Update()
     {
         //判断旋转
-        if (Input.GetMouseButtonDown(1)) //鼠标右键刚刚按下了
+        if (Input.GetMouseButtonDown(0)) //鼠标右键刚刚按下了
         {
             if (m_bMouseRightKeyDown == false)
             {
@@ -43,7 +43,7 @@ public class Came : MonoBehaviour
                 m_fLastMousePosY = kMousePos.y;
             }
         }
-        else if (Input.GetMouseButtonUp(1)) //鼠标右键刚刚抬起了
+        else if (Input.GetMouseButtonUp(0)) //鼠标右键刚刚抬起了
         {
             if (m_bMouseRightKeyDown == true)
             {
@@ -52,7 +52,7 @@ public class Came : MonoBehaviour
                 m_fLastMousePosY = 0;
             }
         }
-        else if (Input.GetMouseButton(1)) //鼠标右键处于按下状态中
+        else if (Input.GetMouseButton(0)) //鼠标右键处于按下状态中
         {
             if (m_bMouseRightKeyDown)
             {
@@ -70,6 +70,23 @@ public class Came : MonoBehaviour
             }
         }
 
+        //判断缩放
+        //Zoom out
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (Camera.main.fieldOfView <= 100)
+                Camera.main.fieldOfView += 2;
+            if (Camera.main.orthographicSize <= 20)
+                Camera.main.orthographicSize += 0.5F;
+        }
+        //Zoom in
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (Camera.main.fieldOfView > 2)
+                Camera.main.fieldOfView -= 2;
+            if (Camera.main.orthographicSize >= 1)
+                Camera.main.orthographicSize -= 0.5F;
+        }
 
         //判断位移
         float fMoveDeltaX = 0.0f;
